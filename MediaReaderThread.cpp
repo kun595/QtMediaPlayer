@@ -69,6 +69,10 @@ void MediaReaderThread::initffmpeg(QString path){
     // 查找视频流
     for (unsigned int i = 0; i < formatcontext->nb_streams; i++) {
         if (formatcontext->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO) {
+            //有些视频文件的封面也是AVMEDIA_TYPE_VIDEO/
+            if(videoIndex != -1){
+                continue;
+            }
             videoIndex = i;
         }
         if (formatcontext->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_AUDIO) {
@@ -79,6 +83,8 @@ void MediaReaderThread::initffmpeg(QString path){
             break;
         }
     }
+
+
 
     //设置解码器参数
     AVCodecParameters *videocodecPar = formatcontext->streams[videoIndex]->codecpar;
@@ -113,7 +119,6 @@ void MediaReaderThread::initffmpeg(QString path){
     if(totaltime <= 0){
         totaltime = 0;
     }
-
 
     //四舍五入
     fps =  qRound(av_q2d(formatcontext->streams[videoIndex]->avg_frame_rate));

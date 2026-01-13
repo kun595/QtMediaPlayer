@@ -22,7 +22,6 @@ class MediaReaderThread : public QThread
 public:
     explicit MediaReaderThread(QString filepath);
     ~MediaReaderThread();
-    // double getvideototaltime();
     void changeplaystate();
     void seek(double seektime);
     void requestwake();

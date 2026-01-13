@@ -273,7 +273,7 @@ void MainWindow::decodeandplay(QString path){
     connect(MediaReader, &MediaReaderThread::totaltimetoAudioDecoder, AudioDecoder, &AudioDecoderThread::settotaltime, Qt::DirectConnection);
 
     //VideoDecoder
-    connect(VideoDecoder, &VideoDecoderThread::frametogl, videowindow, &openglWidget::updateFrame, Qt::DirectConnection);
+    connect(VideoDecoder, &VideoDecoderThread::frametogl, videowindow, &openglWidget::updateFrame/*, Qt::DirectConnection*/);
     connect(VideoDecoder, &VideoDecoderThread::timetowindow, this, &MainWindow::updateslider, Qt::DirectConnection);
     connect(VideoDecoder, &VideoDecoderThread::seeksuccess, this, &MainWindow::canseek, Qt::DirectConnection);
     connect(VideoDecoder, &VideoDecoderThread::videoflush, MediaReader, &MediaReaderThread::videohadflush, Qt::DirectConnection);
